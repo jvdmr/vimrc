@@ -1,0 +1,285 @@
+1,6c1
+< " .vimrc 
+< " based on Botje's vimrc
+< " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
+< " Last Change: Tue Apr 15 2008 22:45:11 CEST
+< 
+< version 6.5
+---
+> version 6.0
+10,40c5
+< let $termcolor = "mycampfire"
+< let $guicolor = "desertedocean"
+< 
+< color $termcolor
+< 
+< ",v brings up my .vimrc
+< map ,v :sp ~/.vimrc<CR><C-W>_
+< ",V reloads it -- making all changes active (have to save first)
+< map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+< 
+< " have <C-F12> bring up the music screen - just a little fantasy :)
+< nnoremap <C-F12> :!screen -x music <CR>
+< 
+< " make switching between split windows easier
+< nnoremap <C-h> <C-w><C-h>
+< nnoremap <C-j> <C-w><C-j>
+< nnoremap <C-k> <C-w><C-k>
+< nnoremap <C-l> <C-w><C-l>
+< 
+< " makes vim save at every :next, :rewind, :last, :first, :previous, :stop,
+< " :suspend, :tag, :!, :make, CTRL-] and CTRL-^ command; and when a :buffer,
+< " CTRL-O, CTRL-I, '{A-Z0-9}, or `{A-Z0-9} command takes one to another file.
+< set autowrite 
+< 
+< " allow backspace over everything in insert mode
+< set backspace=indent,eol,start
+< 
+< " make searches always ignore the case, unless there's  actually 
+< " capital characters in it
+< set ignorecase
+< set smartcase
+---
+> color campfire
+41a7,8
+> set autowrite
+> set backspace=indent,eol,start		" allow backspace in ins mode
+54,55c21
+< 
+< " while typing the search, show what's found for what we typed already
+---
+> set ignorecase						" search case insensitive
+57d22
+< 
+65,67c30
+< 
+< " make % also match < > tags
+< set matchpairs=(:),[:],{:},<:>
+---
+> set matchpairs=(:),[:],{:}
+70,74d32
+< 
+< " keep no backup file
+< set nobackup
+< 
+< " set nocompatible mode - make sure we use vim to the full extend
+76,77c34
+< 
+< set noexpandtab
+---
+> " set noexpandtab
+80c37
+< set modeline
+---
+> set nomodeline
+87,88d43
+< 
+< " show the cursor position all the time
+90d44
+< 
+94,95d47
+< " display the current mode and partially-typed commands in the status line:
+< set showmode
+97,99d48
+< 
+< " when completing from tags file, show the full tag. thus, in C or other code,
+< " see what arguments re required (code style permitting)
+101,102d49
+< 
+< " flash briefly to the matching parenthese if it's visible on the screen
+104c51,52
+< 
+---
+> set showmode
+> set smartcase						" unless search contains caps
+109,113c57,58
+< 
+< " set tabstop at x spaces
+< set tabstop=2
+< 
+< set textwidth=79
+---
+> set tabstop=2							" tab = 4 spaces
+> set textwidth=0
+119,120d63
+< " set h and l keys so that they will wrap around linebrakes
+< " also set arrow keys for this same thing
+122d64
+< 
+128c70
+< let g:timstamp_1='\(\%(L\|l\)ast *\%(changed\?\|modified\|updated\?\|edit\%(ed\)\?\) *:\).*$!\1 %a %b %d %Y %H:%M:%S %Z'
+---
+> let g:timstamp_1='\(Last *\(changed\?\|modified\|updated\?\)\ *:\).*$!\1 %Y %b %d %H:%M:%S'
+142,145c84
+< 	color $guicolor
+< 	autocmd FileType gentoo-package-use hi Special	ctermfg=red
+< 	autocmd FileType gentoo-package-use hi Keyword	ctermfg=green
+< 	autocmd FileType gentoo-package-use	hi Comment	ctermfg=blue
+---
+> 	color campfire
+154,156c93,95
+< 				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+< 				\   exe "normal g`\"" |
+< 				\ endif
+---
+>    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+>    \   exe "normal g`\"" |
+>    \ endif
+163,170c102
+< autocmd Syntax tex set foldmethod=syntax
+< autocmd Syntax xml set foldmethod=syntax
+< autocmd Syntax java set foldmethod=syntax
+< autocmd Syntax scheme set foldmethod=syntax
+< autocmd Syntax fluxbox set foldmethod=syntax
+< autocmd Syntax cpp set foldmethod=syntax
+< autocmd Syntax c set foldmethod=syntax
+< "autocmd Syntax *stuff* set foldmethod=indent
+---
+> "autocmd Syntax tex,xml,java,fluxbox,cpp set foldmethod=syntax
+173,182d104
+< 
+< " have zz fold a block (matching parentheses)
+< nnoremap zz zf%
+< 
+< " }}}
+< 
+< " Folds: {{{
+< 
+< set tabpagemax=25
+< 
+191,195d112
+< "
+< " when programming in  c++, lisp, have F9 run our code
+< autocmd FileType cpp nnoremap <F9> :!make run<CR>
+< autocmd FileType lisp nnoremap <F9> :!lisp -load % -eval '(quit)'<CR>
+< 
+204a122
+> 	autocmd FileType c,cpp set fdm=manual
+226,230d143
+< " Scheme: {{{
+< autocmd Syntax scheme setlocal et
+< autocmd Syntax scheme nnoremap <F9> :!mred -fmv- % <CR>
+< " }}}
+< 
+273c186
+< "autocmd BufNewFile *.html 0r ~/.vim/templates/html
+---
+> autocmd BufNewFile *.html 0r ~/.vim/templates/html
+305c218,220
+< 
+---
+> nnoremap <F1> <ESC>
+> inoremap <F1> <ESC>
+> nnoremap <Enter> :nohls<Enter><Enter>
+308d222
+< 
+313,324d226
+< " press <F11> to switch between dark and light background colors
+< " doesn't always seem to work though...
+< map <F11> :set bg=dark<CR>
+< map <C-F11> :set bg=light<CR>
+< 
+< " have <F1> prompt for a help topic, rather than displaying the introduction
+< " page, and have it do this from any mode:
+< nnoremap <F1> :help<Space>
+< vmap <F1> <C-C><F1>
+< omap <F1> <C-C><F1>
+< map! <F1> <C-C><F1>
+< 
+331c233
+< map <S-F11> :w<esc>:Explore<esc>		" save curr file, and open explorer
+---
+> map <F11> :w<esc>:Explore<esc>		" save curr file, and open explorer
+337,341c239,243
+< 			\:source $VIMRUNTIME/syntax/xml.vim<CR>
+< 			\:set foldmethod=manual<CR>
+< 			\:source $VIMRUNTIME/syntax/syntax.vim<CR>
+< 			\:source $ADDED/xml.vim<CR>
+< 			\:echo "XML mode is on"<CR>
+---
+> 	\:source $VIMRUNTIME/syntax/xml.vim<CR>
+> 	\:set foldmethod=manual<CR>
+> 	\:source $VIMRUNTIME/syntax/syntax.vim<CR>
+> 	\:source $ADDED/xml.vim<CR>
+> 	\:echo "XML mode is on"<CR>
+344,348c246,250
+< 			\:source $VIMRUNTIME/syntax/html.vim<CR>
+< 			\:set foldmethod=syntax<CR>
+< 			\:source $VIMRUNTIME/syntax/syntax.vim<CR>
+< 			\:source $ADDED/html.vim<CR>
+< 			\:echo "HTML mode is on"<CR>
+---
+> 	\:source $VIMRUNTIME/syntax/html.vim<CR>
+> 	\:set foldmethod=syntax<CR>
+> 	\:source $VIMRUNTIME/syntax/syntax.vim<CR>
+> 	\:source $ADDED/html.vim<CR>
+> 	\:echo "HTML mode is on"<CR>
+353,354c255
+< " have <Enter> also turning off highlighting
+< nnoremap <Enter> :nohls<Enter><Enter>
+---
+> map <CR> :noh<CR>
+359,370c260,261
+< " Botje's stuff haalt de volgende/vorige file naar de huidige window, mijn
+< " stuff zet de cursor naar de andere window. mine's better
+< "nmap <TAB> :bn<CR>
+< "nmap <S-TAB> :bp<CR>
+< " set tab key for switching between split windows
+< noremap <Tab> <C-W>w
+< noremap <S-Tab> <C-W>W
+< 
+< " and have <F2> open a new horizontal window and ask for which file to open
+< noremap <F2> :new<CR>:e 
+< " same for <F3>, vertical
+< noremap <F3> :vne<CR>:e 
+---
+> nmap <C-TAB> :bn<CR>
+> nmap <C-S-TAB> :bp<CR>
+373,378c264,265
+< nnoremap <F10> gqap
+< vnoremap <F10> gq
+< map! <F10> <C-C><F10>a
+< 
+< "mac doesn't like <C-]>
+< map! <C-$> <C-]>
+---
+> nnoremap Q gqap
+> vnoremap Q gq
+379a267
+> map gf :e <cfile><CR>
+385,391c273,279
+< command! -nargs=* -range=% Sort <line1>,<line2>!sort <args>
+< command! -nargs=* -range=% Uniq <line1>,<line2>!uniq <args>
+< command! -nargs=* -range=% Rand <line1>,<line2>!rand <args>
+< command! Q :qall!
+< command! W :w!
+< command! Wq :wq!
+< command! WQ :wq!
+---
+> command -nargs=* -range=% Sort <line1>,<line2>!sort <args>
+> command -nargs=* -range=% Uniq <line1>,<line2>!uniq <args>
+> command -nargs=* -range=% Rand <line1>,<line2>!rand <args>
+> command Q :qall!
+> command W :w!
+> command Wq :wq!
+> command WQ :wq!
+419c307
+< 	color $guicolor
+---
+> 	color desertedocean
+421c309
+< 	color $termcolor
+---
+> 	color campfire
+461c349
+< 	" {{{ ai and ii text objects
+---
+> " {{{ ai and ii text objects
+492c380
+< 	" }}}
+---
+> " }}}
+497c385
+< " Last change: Tue Apr 15 2008 22:45:11 CEST
+---
+> " Last change: 2008 Apr 07 10:19:01

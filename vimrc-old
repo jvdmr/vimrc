@@ -1,0 +1,229 @@
+" .vimrc Joris Vandermeersch <jovdmeer@vub.ac.be>
+"
+
+" set nocompatible mode - make sure we use vim to the full extend
+set nocp
+
+" set tabstop at x spaces
+set tabstop=2
+
+" allow backspace over everything in insert mode
+set backspace=indent,eol,start
+
+" keep no backup file
+set nobackup
+
+" show the cursor position all the time
+set ruler
+
+" display the current mode and partially-typed commands in the status line:
+set showmode
+set showcmd
+
+" make searches always ignore the case, unless there's  actually 
+" capital characters in it
+set ignorecase
+set smartcase
+
+" while typing the search, show what's found for what we typed already
+set incsearch
+
+" set h and l keys so that they will wrap around linebrakes
+" also set arrow keys for this same thing
+set whichwrap=h,l,~,[,]
+
+" set tab key for switching between split windows
+noremap <Tab> <C-W>w
+noremap <S-Tab> <C-W>W
+" and have <F2> open a new horizontal window and ask for which file to open
+noremap <F2> :new<CR>:e 
+" same for <F3>, vertical
+noremap <F3> :vne<CR>:e 
+
+",v brings up my .vimrc
+",V reloads it -- making all changes active (have to save first)
+map ,v :sp ~/.vimrc<CR><C-W>_
+map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" folding - have zz fold a block (matching parentheses)
+nnoremap zz zf%
+
+" have <Enter> also turning off highlighting
+nmap <Enter> :nohls<Enter><Down>
+
+" have <F1> prompt for a help topic, rather than displaying the introduction
+" page, and have it do this from any mode:
+nnoremap <F1> :help<Space>
+vmap <F1> <C-C><F1>
+omap <F1> <C-C><F1>
+map! <F1> <C-C><F1>
+
+" have <F10> wrap the current alinea nicely with linebreaks in the right spots
+" and stuff, all width the preset textwidth, also from any mode (since i don't
+" know which one is insert, that is...
+nnoremap <F10> gqap<Up><End>
+map! <F10> <C-C><F10>a
+
+" have <C-F12> bring up the music screen - just a little fantasy :)
+nnoremap <C-F12> :!screen -x music <CR>
+
+" make switching between split windows easier
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+
+" when programming in scheme, c++, lisp, have F9 run our code
+autocmd FileType scheme nnoremap <F9> :!mzscheme -f % -e '(exit)'<CR>
+autocmd FileType cpp nnoremap <F9> :!make run<CR>
+autocmd FileType lisp nnoremap <F9> :!lisp -load % -eval '(quit)'<CR>
+
+" allow <BkSpc> to delete line breaks, beyond the start of the current
+" insertion, and over indentations:
+set backspace=eol,start,indent
+
+" \hc ("HTML close") inserts the tag needed to close the current HTML construct
+" [function at end of file]:
+nnoremap \hc :call InsertCloseTag()<CR>
+imap <F8> <Space><BS><Esc>\hca
+
+" press <F11> to switch between dark and light background colors
+map <F11> :set bg=dark<CR>
+map <C-F11> :set bg=light<CR>
+
+" make % also match < > tags
+set matchpairs+=<:>
+
+" nicer look on matching parenthesis stuff
+highlight MatchParen term=bold ctermbg=Black ctermfg=Red guibg=Red guifg=Black
+
+" set syntax highlighting
+if has("syntax") && (&t_Co > 2)
+	syntax on
+endif
+
+" put linenumbers in front of each line
+set nu
+set nuw=1
+
+" have 50 lines of command-line history
+set history=50
+
+" set spellcheck (dutch!)
+"setlocal spell spelllang=nl_be
+"set spellfile=~/.vim_spell.nl.add
+
+" remember all of these between sessions, but only 10 search terms; also
+" remember info for 10 files, but never any on removable disks, don't remember
+" marks in files, don't rehighlight old search patterns, and only save up to
+" 100 lines of registers; including @10 in there should restrict input buffer
+" but it causes an error for me:
+set viminfo=/10,'10,r/mnt/floppy,r/mnt/cdrom,r/mnt/ipod*,r/mnt/usb*,f0,h,\"100
+
+" have command-line completion <Tab> (for filenames, help topics, option names)
+" first list the available options and complete the longest common part, then
+" have further <Tab>s cycle through the possibilities:
+set wildmode=list:longest,full
+
+" don't have other files trying to override this .vimrc
+set nomodeline
+
+"actually, it's not.
+"" actually, this is quite handy once those linenumber thingies are on, so don't
+"" turn this off anymore
+""" don't make it look like there's linebreaks where there aren't
+set nowrap
+
+" use indents of 2 spaces, and have them copied down lines:
+set shiftwidth=2
+set shiftround
+set expandtab
+set autoindent
+
+" normally don't automatically format `text' as it is typed, IE only do this
+" with comments, at 79 characters:
+set formatoptions-=t
+set textwidth=79
+
+" enable filetype detection
+filetype on
+
+" for C-like stuff have automatic indentation
+autocmd FileType c,cpp,slang set cindent ts=2
+
+" for actual C (not C++) programming where comments have explicit end
+" characters, if starting a new line in the middle of a comment automatically
+" insert the comment leader characters:
+autocmd FileType c set formatoptions+=ro
+
+" for Perl programming, have things in braces indenting themselves:
+autocmd FileType perl set smartindent
+
+" for HTML, generally format text, but if a long line has been created leave it
+" alone when editing:
+autocmd FileType html set formatoptions+=tl
+
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=8
+
+" have LaTeX files put linebreaks nicely like any other file (like in e-mail,
+" or this vimrc)
+autocmd FileType tex set tw=78
+
+function! InsertCloseTag()
+" inserts the appropriate closing HTML tag; used for the \hc operation defined
+" above;
+" requires ignorecase to be set, or to type HTML tags in exactly the same case
+" that I do;
+" doesn't treat <P> as something that needs closing;
+" clobbers register z and mark z
+" 
+" by Smylers  http://www.stripey.com/vim/
+" 2000 May 4
+  if &filetype == 'html'||'php'
+    " list of tags which shouldn't be closed:
+    let UnaryTags = ' Area Base Br DD DT HR Img Input LI Link Meta Param '
+    " remember current position:
+    normal mz
+    " loop backwards looking for tags:
+    let Found = 0
+    while Found == 0
+      " find the previous <, then go forwards
+      " one character and grab the first
+      " character plus the entire word:
+      execute "normal ?\<LT>\<CR>l"
+      normal "zyl
+      let Tag = expand('<cword>')
+      " if this is a closing tag, skip back to its matching opening tag:
+      if @z == '/' 
+        execute "normal ?\<LT>" . Tag . "\<CR>" "                                                                                       
+      " if this is a unary tag, then position the cursor for the next 
+      " iteration:
+      elseif match(UnaryTags,' ' . Tag . ' ') > 0 
+        normal h 
+        
+      " otherwise this is the tag that needs closing:
+      else 
+        let Found = 1 
+      endif 
+    endwhile " not yet found match 
+      
+    "create the closing tag and insert it: 
+    let @z = '</' . Tag . '>' 
+    normal `z 
+    if col('.') == 1 
+      normal "zP 
+    else 
+      normal "zp
+    endif
+    
+  else " filetype is not HTML 
+    echohl ErrorMsg 
+    echo 'The InsertCloseTag() function is only intended to be used in HTML' . 
+      \ 'files.' 
+    sleep 
+    echohl None
+  endif " check on filetype
+endfunction " InsertCloseTag()

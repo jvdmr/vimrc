@@ -1,0 +1,160 @@
+#!/usr/bin/perl -w
+#
+# Code by cnf@antwerpen.be
+#
+# Licenced by the GPL General Public License
+# Have a look at:
+# http://www.gnu.org/copyleft/gpl.html
+# For more information about the GPL License
+#
+# I am not responsible for what this code does to your hw/sw/mind
+# Use at your own risk
+# 
+
+use strict;
+
+
+my $file = $ARGV[-1];	# File being processed
+my $VERSION = "2.21";   # pltags version
+my $status = 0;         # GetOptions return value
+my @tags = ();          # List of produced tags
+my $is_pkg = 0;         # Are we tagging a package?
+my $has_subs = 0;       # Has this file any subs yet?
+my $package_name = "";  # Name of current package
+my $var_continues = 0;  # Variable declaration continues on last line
+my $line = "";          # Current line in file
+my $stmt = "";          # Current Perl statement
+my @vars = ();          # List of variables in declaration
+my $var = "";           # Variable in declaration
+my $tagline = "";       # Tag file line
+
+
+## SubRoutines
+sub MakeTag {
+    my ($tag,           # Tag name
+        $type,          # Type of tag
+        $is_static,     # Is this a static tag?
+        $file,          # File in which tag appears
+        $line,			# Line in which tag appears
+		$linenr) = @_;  # Line number in which tag appears
+    $file = $ARGV[-1];
+
+    my $tagline = "";   # Created tag line
+
+    # Only process tag if not empty
+    if ($tag)
+    {
+        # Get rid of \n, and escape / and \ in line
+        chomp $line;
+        $line =~ s/\\/\\\\/g;
+        $line =~ s/\//\\\//g;
+
+        # Create a tag line
+        $tagline = "$tag\t$file\t/^$line\$/";
+
+		$tagline .= ";\"\t$type\tline:$linenr"
+			. ($package_name ? "\tclass:$package_name" : "");
+
+        # Push it on the stack
+        push (@tags, $tagline);
+    }
+}
+
+sub PackageName {
+    my ($stmt) = @_;    # Statement
+
+    # Look for the argument to "package".  Return it if found, else return ""
+    if ($stmt =~ /^package\s+([\w:]+)/)
+    {
+        my $pkgname = $1;
+
+        # Remove any parent package name(s)
+        $pkgname =~ s/.*://;
+        return $pkgname;
+    }
+    else
+    {
+        return "";
+    }
+}
+
+sub SubName {
+    my ($stmt) = @_;    # Statement
+
+    # Look for the argument to "sub".  Return it if found, else return ""
+    if ($stmt =~ /^sub\s+([\w:]+)/)
+    {
+        my $subname = $1;
+
+        # Remove any parent package name(s)
+        $subname =~ s/.*://;
+        return $subname;
+    }
+    else
+    {
+        return "";
+    }
+}
+
+sub VarNames {
+    my ($stmt) = @_;
+
+    # Remove my or local from statement, if present
+    $stmt =~ s/^(my|our|local)\s+//;
+
+    # Remove any assignment piece
+    $stmt =~ s/\s*=.*//;
+
+    # Now find all variable names, i.e. "words" preceded by $, @ or %
+	#@vars = ($stmt =~ /[\$\@\%]([\w:]+)\b/g);
+	@vars = ($stmt =~ /([\$\@\%][\w:]+)\b/g);
+
+    # Remove any parent package name(s)
+    map(s/.*://, @vars);
+
+    return (@vars);
+}
+
+open FILE, "<$file" or die "cant open $file : $!";
+
+while (<FILE>) {
+	my $linnr = $.;
+	my $line = $_;
+	($stmt = $_) =~ s/#.*//;
+	$stmt =~ s/^\s*//;
+	$stmt =~ s/\s*$//;
+	next unless ($stmt);
+
+	# Vars
+	my $var_continues = 0;
+	if ($var_continues or ($stmt =~/^my\b/)	or ($stmt =~/^our\b/) or ($stmt =~/^local\b/)) {
+
+		$var_continues = ($stmt !~ /;$/);
+		foreach my $var (VarNames($stmt)) {
+			MakeTag($var, "v", (!$is_pkg or $has_subs), $file, $line, $linnr);
+		}
+	} 
+	# Packages
+	elsif ($stmt =~/^package\b/) {
+		$package_name = PackageName($stmt);
+		if ($package_name) {
+			my $is_pkg = 1;
+			MakeTag($package_name, "p", 0, $file, $line, $linnr);
+		}
+	}
+	
+	# Subs	
+	elsif ($stmt =~/^sub\b/) {
+		$has_subs = 1;
+		MakeTag(SubName($stmt), "s", (!$is_pkg), $file, $line, $linnr);
+	}
+}
+close FILE;
+
+if (@tags) {
+	foreach $tagline (sort @tags) {
+        print "$tagline\n";
+    }
+}
+
+# Last change: by cnf on Monday - Jul 07 2003 :: 20:47:59
