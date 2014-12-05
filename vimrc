@@ -1,7 +1,7 @@
 " .vimrc 
 " based on Botje's vimrc
 " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
-" Last Change: Fri Dec 28 2012 16:05:40 CET
+" Last Change: Thu Dec 04 2014 12:10:56 CET
 
 version 6.5
 
@@ -82,7 +82,7 @@ set noexpandtab
 set noerrorbells
 "set nomesg
 set modeline
-set modelines=1
+set modelines=5
 set nopaste							" normal insert mode
 "set nowrapscan
 set number
@@ -115,7 +115,9 @@ set tags=./tags,./../tags,./../../tags,./../../../tags,./../../../../tags,./*/ta
 " set tabstop at x spaces
 set tabstop=2
 
-set textwidth=79
+"set textwidth=79
+set textwidth=0
+autocmd Syntax tex setlocal textwidth=78
 set t_vb=
 set undolevels=200
 set visualbell
@@ -525,5 +527,5 @@ endif
 set bg=dark
 
 "
-" Last change: Fri Dec 28 2012 16:05:40 CET
+" Last change: Thu Dec 04 2014 12:10:56 CET
 " vim: foldmethod=marker
