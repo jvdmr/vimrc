@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # Description: XXX
-# Author: omega <omega@infogroep.be>
+# Author: Joris Vandermeersch <joris.vdmr@gmail.com>
 use strict;
 use warnings;
 
