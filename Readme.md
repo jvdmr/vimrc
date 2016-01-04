@@ -1,4 +1,4 @@
-This is my .vimrc
+# This is my .vimrc
 
 I have used it for about 8 years now and it is wonderful.
 I originally copied it from Botje.
@@ -7,3 +7,10 @@ There's a Sokoban plugin in it somewhere.
 Why would I even need that in my text editor.
 
 This .vimrc is awesome.
+
+To install:
+
+    git clone https://github.com/jovdmeer/vimrc.git
+		sh vimrc/install.sh
+
+That's it!
