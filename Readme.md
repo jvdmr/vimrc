@@ -11,6 +11,6 @@ This .vimrc is awesome.
 To install:
 
     git clone https://github.com/jovdmeer/vimrc.git
-		sh vimrc/install.sh
+    sh vimrc/install.sh
 
 That's it!
