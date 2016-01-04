@@ -1,2 +1,2 @@
-mv vimrc .vim
-ln -s .vim/vimrc .vimrc
+mv vimrc ~/.vim
+ln -s ~/.vim/vimrc ~/.vimrc
