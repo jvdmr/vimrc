@@ -1,7 +1,7 @@
 " .vimrc 
 " based on Botje's vimrc
 " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
-" Last Change: Thu Dec 04 2014 12:10:56 CET
+" Last Change: Tue Oct 03 2017 15:18:15 CEST
 
 version 6.5
 
@@ -171,6 +171,7 @@ endif " has("autocmd")
 
 " Folds: {{{
 
+autocmd FileType crontab setlocal nobackup nowritebackup
 autocmd Syntax ambienttalk set foldmethod=manual
 autocmd Syntax vim set foldmethod=marker
 autocmd Syntax tex set foldmethod=manual
@@ -527,5 +528,5 @@ endif
 set bg=dark
 
 "
-" Last change: Thu Dec 04 2014 12:10:56 CET
+" Last change: Tue Oct 03 2017 15:18:15 CEST
 " vim: foldmethod=marker
