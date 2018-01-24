@@ -1,7 +1,7 @@
 " .vimrc 
 " based on Botje's vimrc
 " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
-" Last Change: Tue Oct 03 2017 15:18:15 CEST
+" Last Change: Sun Jan 07 2018 14:56:40 CET
 
 version 6.5
 
@@ -21,8 +21,8 @@ map ,v :sp ~/.vimrc<CR><C-W>_
 " ,V reloads it -- making all changes active (have to save first)
 map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-" have <C-F12> bring up the music screen - just a little fantasy :)
-nnoremap <C-F12> :!screen -x music <CR>
+" go to next line after reindent
+"nnoremap == ==j
 
 " make switching between split windows easier
 nnoremap <C-h> <C-w><C-h>
@@ -223,6 +223,13 @@ augroup cprog
 augroup END
 " }}}
 
+" Vagrant: {{{
+augroup vagrant
+  au!
+  au BufRead,BufNewFile Vagrantfile set filetype=ruby
+augroup END
+" }}}
+
 " AmbientTalk: {{{
 autocmd BufRead,BufNewFile *.at setlocal ft=ambienttalk
 autocmd Syntax ambienttalk setlocal et
@@ -388,10 +395,6 @@ map <A-i> i <ESC>r
 nmap Y y$
 
 imap <Nul> <esc>
-" Botje's stuff haalt de volgende/vorige file naar de huidige window, mijn
-" stuff zet de cursor naar de andere window. mine's better
-" nmap <TAB> :bn<CR>
-" nmap <S-TAB> :bp<CR>
 " set tab key for switching between split windows
 noremap <Tab> <C-W>w
 noremap <S-Tab> <C-W>W
@@ -528,5 +531,5 @@ endif
 set bg=dark
 
 "
-" Last change: Tue Oct 03 2017 15:18:15 CEST
+" Last change: Sun Jan 07 2018 14:56:40 CET
 " vim: foldmethod=marker
