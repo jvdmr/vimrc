@@ -1,7 +1,7 @@
 " .vimrc 
 " based on Botje's vimrc
 " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
-" Last Change: Sun Jan 07 2018 14:56:40 CET
+" Last Change: Fri Jun 08 2018 13:17:51 CEST
 
 version 6.5
 
@@ -9,8 +9,8 @@ version 6.5
 
 "let $termcolor = "campfire"
 "let $termcolor = "vividchalk"
-let $termcolor = "mycampfire"
-"let $termcolor = "chela_light"
+"let $termcolor = "mycampfire"
+let $termcolor = "chela_light"
 "let $termcolor = "oceanlight"
 let $guicolor = "desertedocean"
 
@@ -274,6 +274,10 @@ let php_baselib = 1
 " let php_oldStyle = 1
 " }}}
 
+" XML: {{{
+autocmd Syntax xml setlocal et
+" }}}
+
 " TagList Entries: {{{
 " URL: http://www.vim.org/scripts/script.php?script_id=273
 autocmd Syntax perl let g:Tlist_Ctags_Cmd = '~/.vim/pl-tags'
@@ -531,5 +535,5 @@ endif
 set bg=dark
 
 "
-" Last change: Sun Jan 07 2018 14:56:40 CET
+" Last change: Fri Jun 08 2018 13:17:51 CEST
 " vim: foldmethod=marker
