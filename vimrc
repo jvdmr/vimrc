@@ -1,7 +1,7 @@
 " .vimrc 
 " based on Botje's vimrc
 " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
-" Last Change: Fri Jun 08 2018 13:17:51 CEST
+" Last Change: Fri Sep 07 2018 19:37:01 CEST
 
 version 6.5
 
@@ -9,8 +9,8 @@ version 6.5
 
 "let $termcolor = "campfire"
 "let $termcolor = "vividchalk"
-"let $termcolor = "mycampfire"
-let $termcolor = "chela_light"
+let $termcolor = "mycampfire"
+"let $termcolor = "chela_light"
 "let $termcolor = "oceanlight"
 let $guicolor = "desertedocean"
 
@@ -535,5 +535,5 @@ endif
 set bg=dark
 
 "
-" Last change: Fri Jun 08 2018 13:17:51 CEST
+" Last change: Fri Sep 07 2018 19:37:01 CEST
 " vim: foldmethod=marker

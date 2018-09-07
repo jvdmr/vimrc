@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:	Joris Vandermeersch <joris@infogroep.be>
-" Last Change: Sat May 23 2009 13:35:06 CEST
+" Last Change: Fri Sep 07 2018 19:43:43 CEST
 
 hi clear
 if exists("syntax_on")
@@ -9,7 +9,6 @@ endif
 
 let colors_name = "mycampfire"
 
-"hi Normal			ctermfg=gray		ctermbg=black
 hi Normal			ctermfg=gray		ctermbg=black
 hi ErrorMsg			ctermfg=red			ctermbg=black
 hi Visual			ctermfg=lightblue	ctermbg=fg			cterm=reverse
@@ -28,9 +27,9 @@ hi MoreMsg			ctermfg=darkgreen
 hi Question			ctermfg=green							cterm=none
 hi NonText			ctermfg=darkblue
 
-hi StatusLine		ctermfg=blue		ctermbg=gray		cterm=none					term=none
-hi StatusLineNC		ctermfg=black		ctermbg=gray		cterm=none					term=none
-hi VertSplit		ctermfg=black		ctermbg=gray		cterm=none					term=none
+hi StatusLine		ctermfg=blue		ctermbg=darkgray		cterm=none					term=none
+hi StatusLineNC		ctermfg=black		ctermbg=darkgray		cterm=none					term=none
+hi VertSplit		ctermfg=black		ctermbg=darkgray		cterm=none					term=none
 
 hi Folded			ctermfg=darkgrey	ctermbg=black		cterm=bold					term=bold
 hi FoldColumn		ctermfg=darkgrey	ctermbg=black		cterm=bold					term=bold
@@ -45,7 +44,7 @@ hi lCursor			ctermfg=bg			ctermbg=darkgreen
 
 hi Comment			ctermfg=white
 "hi Constant			ctermfg=magenta							cterm=none
-hi Special			ctermfg=brown							cterm=none
+hi Special			ctermfg=10							cterm=none
 hi Identifier		ctermfg=cyan							cterm=none
 hi Statement		ctermfg=yellow							cterm=none
 "hi PreProc			ctermfg=magenta							cterm=none
@@ -55,7 +54,7 @@ hi rubySharpBang	ctermfg=brown							cterm=none
 hi type				ctermfg=green							cterm=none
 hi Underlined												cterm=underline				term=underline
 hi Ignore			ctermfg=bg
-hi String			ctermfg=3								cterm=NONE					term=NONE			start=^[[m^[[33m	stop=^[[m^[[32m
+hi String			ctermfg=6								cterm=NONE					term=NONE			start=^[[m^[[33m	stop=^[[m^[[32m
 "hi Constant			ctermfg=136								cterm=NONE					term=NONE			start=^[[m^[[33m	stop=^[[m^[[32m
 hi Constant			ctermfg=red								cterm=NONE					term=NONE			start=^[[m^[[33m	stop=^[[m^[[32m
 hi PMenu			ctermfg=lightgray	ctermbg=darkgray
