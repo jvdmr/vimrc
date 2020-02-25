@@ -8,5 +8,5 @@ map <silent> ,V :source ~/.ideavimrc<CR>:filetype detect<CR>:exe ":echo 'ideavim
 set ideajoin
 set commentary
 
-nunmap +
-nmap + gccj
+unmap +
+map + gccj

@@ -1,7 +1,7 @@
 " .vimrc 
 " based on Botje's vimrc
 " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
-" Last Change: Fri Sep 07 2018 19:37:01 CEST
+" Last Change: Tue Feb 25 2020 11:36:31 CET
 
 version 6.5
 
@@ -230,6 +230,10 @@ augroup vagrant
 augroup END
 " }}}
 
+" Ruby: {{{
+autocmd Syntax ruby setlocal et
+" }}}
+
 " AmbientTalk: {{{
 autocmd BufRead,BufNewFile *.at setlocal ft=ambienttalk
 autocmd Syntax ambienttalk setlocal et
@@ -272,6 +276,11 @@ let php_sql_query = 1
 let php_htmlInStrings = 1
 let php_baselib = 1
 " let php_oldStyle = 1
+" }}}
+
+" YAML: {{{
+"autocmd Syntax yaml setlocal nosmartindent
+"autocmd Syntax yaml setlocal nosmarttab
 " }}}
 
 " XML: {{{
@@ -403,10 +412,10 @@ imap <Nul> <esc>
 noremap <Tab> <C-W>w
 noremap <S-Tab> <C-W>W
 
-" and have <F2> open a new horizontal window and ask for which file to open
-noremap <F2> :new<CR>:e 
-" same for <F3>, vertical
-noremap <F3> :vne<CR>:e 
+" and have <C-S-O> open a new horizontal window and ask for which file to open
+noremap <C-S-O> :new<CR>:e 
+" same for <C-O>, vertical
+noremap <C-O> :vne<CR>:e 
 
 " make Q reformat current paragraph or select text
 nnoremap <F10> gqap
@@ -535,5 +544,5 @@ endif
 set bg=dark
 
 "
-" Last change: Fri Sep 07 2018 19:37:01 CEST
+" Last change: Tue Feb 25 2020 11:36:31 CET
 " vim: foldmethod=marker
