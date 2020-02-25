@@ -1,0 +1,12 @@
+source ~/.vimrc
+
+" ,v brings up my .ideavimrc
+map ,v :sp ~/.ideavimrc<CR><C-W>_
+" ,V reloads it -- making all changes active (have to save first)
+map <silent> ,V :source ~/.ideavimrc<CR>:filetype detect<CR>:exe ":echo 'ideavimrc reloaded'"<CR>
+
+set ideajoin
+set commentary
+
+nunmap +
+nmap + gccj
