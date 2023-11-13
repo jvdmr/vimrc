@@ -1,7 +1,7 @@
 " .vimrc 
 " based on Botje's vimrc
 " Maintainer: 	Joris Vandermeersch <jovdmeer@vub.ac.be>
-" Last Change: Tue Feb 25 2020 11:36:31 CET
+" Last Change: Fri Oct 14 2022 09:11:00 CEST
 
 version 6.5
 
@@ -279,8 +279,8 @@ let php_baselib = 1
 " }}}
 
 " YAML: {{{
-"autocmd Syntax yaml setlocal nosmartindent
-"autocmd Syntax yaml setlocal nosmarttab
+autocmd Syntax yaml setlocal nosmartindent
+autocmd Syntax yaml setlocal nosmarttab
 " }}}
 
 " XML: {{{
@@ -544,5 +544,5 @@ endif
 set bg=dark
 
 "
-" Last change: Tue Feb 25 2020 11:36:31 CET
+" Last change: Fri Oct 14 2022 09:11:00 CEST
 " vim: foldmethod=marker
